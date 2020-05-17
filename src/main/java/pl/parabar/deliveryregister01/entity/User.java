@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -19,18 +20,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotEmpty
+    @Column(nullable = false, length = 60)
     private String firstName;
 
-    @NotEmpty
+    @Column(nullable = false, length = 60)
     private String lastName;
 
-    @NotEmpty
-    private String login;
+    @Column(nullable = false, unique = true, length = 60)
+    private String username;
 
-    @NotEmpty
     private String password;
 
-    @NotEmpty
-    private String role;
+    private int enabled;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 }

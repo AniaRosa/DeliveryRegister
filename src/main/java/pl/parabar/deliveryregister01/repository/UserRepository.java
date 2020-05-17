@@ -5,4 +5,6 @@ import pl.parabar.deliveryregister01.entity.Address;
 import pl.parabar.deliveryregister01.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    User findByUsername(String username);
 }
