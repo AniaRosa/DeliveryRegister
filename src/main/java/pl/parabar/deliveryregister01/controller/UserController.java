@@ -1,11 +1,9 @@
 package pl.parabar.deliveryregister01.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.parabar.deliveryregister01.entity.User;
 import pl.parabar.deliveryregister01.service.CurrentUser;
@@ -20,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/create-admin")
+    @GetMapping("/create-users")
     @ResponseBody
     public String createUser() {
         User user = new User();
@@ -29,15 +27,29 @@ public class UserController {
         user.setUsername("admin");
         user.setPassword("admin");
         userService.saveUser(user, "ROLE_ADMIN");
+
+        User user2 = new User();
+        user2.setFirstName("manager");
+        user2.setLastName("manager");
+        user2.setUsername("manager");
+        user2.setPassword("manager");
+        userService.saveUser(user2, "ROLE_MANAGER");
+
+        User user3 = new User();
+        user3.setFirstName("driver");
+        user3.setLastName("driver");
+        user3.setUsername("driver");
+        user3.setPassword("driver");
+        userService.saveUser(user3, "ROLE_DRIVER");
+
         return "done";
     }
 
-    @PostMapping("/admin")
-    @ResponseBody
+    @PostMapping("/dashboard")
     public String admin(@AuthenticationPrincipal CurrentUser customUser) {
         User entityUser = customUser.getUser();
-        return "Hello " + entityUser.getUsername();
-        //return "admin";
+        return "dashboard";
+
     }
 
 }

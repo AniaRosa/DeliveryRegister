@@ -9,10 +9,11 @@
 <html>
 <head>
     <title>Delivery Register</title>
+    <link href="/css/main.css" rel="stylesheet">
 </head>
-<body>
-<p align="center">
-    <a href="/login">Zaloguj!</a>
+<body class="bg">
+<p align="center" >
+    <a href="/login" class="button">Zaloguj!</a>
 </p>
 </body>
 </html>

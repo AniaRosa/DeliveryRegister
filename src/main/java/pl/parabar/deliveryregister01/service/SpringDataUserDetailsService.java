@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import pl.parabar.deliveryregister01.entity.Role;
 import pl.parabar.deliveryregister01.entity.User;
 
 import java.util.HashSet;
@@ -25,8 +26,10 @@ this.userService = userService;
         User user = userService.findByUsername(username);
         if (user == null) {throw new UsernameNotFoundException(username); }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        user.getRoles().forEach(r ->
-                grantedAuthorities.add(new SimpleGrantedAuthority(r.getName())));
+//        user.getRoles().forEach(r ->
+//                grantedAuthorities.add(new SimpleGrantedAuthority(r.getName())));
+        Role role = user.getRole();
+        grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         return new CurrentUser(user.getUsername(), user.getPassword(),
                 grantedAuthorities, user);
     }
