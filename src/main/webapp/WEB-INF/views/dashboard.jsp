@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>DELIVERY REGISTER Admin</title>
+    <title>DELIVERY REGISTER Pulpit</title>
     <link href="/css/main.css" rel="stylesheet">
 
 </head>
@@ -30,7 +30,7 @@
     </sec:authorize>
 
     <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
-        <tr><td></td></tr>
+        <tr style="height: 20px"></tr>
         <tr>
             <td><a href="/add-fee" class="button">Dodaj opłatę</a></td>
             <td><a href="/add-driver" class="button">Dodaj użytkownika</a></td>
@@ -44,7 +44,7 @@
     </sec:authorize>
 
     <sec:authorize access="hasRole('ADMIN')">
-        <tr><td></td></tr>
+        <tr style="height: 20px"></tr>
         <tr>
             <td></td>
             <td><a href="/add-manager" class="button">Dodaj managera</a></td>
