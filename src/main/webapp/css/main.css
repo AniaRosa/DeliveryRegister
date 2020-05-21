@@ -63,6 +63,13 @@ td {
     font-size:18px;
 }
 
+th {
+    text-align: center;
+    font-family:Arial;
+    font-size:18px;
+    font-weight:bold;
+}
+
 .errorMessage {
     color: #740000;
     font-family: Arial;

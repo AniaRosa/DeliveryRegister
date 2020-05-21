@@ -19,24 +19,18 @@ public class Refuel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotEmpty
     @ManyToOne
     private User user;
 
-    @NotEmpty
     private String date;
 
-    @NotEmpty
     private String time;
 
-    @NotEmpty
     private String fuelType;
 
-    @NotEmpty
     @Min(1)
     private double quantity;
 
-    @NotEmpty
     @Min(1)
     private double price;
 }

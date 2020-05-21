@@ -17,7 +17,7 @@
 
 <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
 
-    <form:form method="post" action="/add-odometer-reading" modelAttribute="odometerReading">
+    <form:form method="post" action="/odometer-reading/form" modelAttribute="odometerReading">
         <table align="center">
             <tr>
                 <td>Stan licznika: <form:input path="kms" />
@@ -37,6 +37,11 @@
 
         </table>
     </form:form>
+    <table align="center">
+        <tr>
+            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
+        </tr>
+    </table>
 </sec:authorize>
 
 </body>

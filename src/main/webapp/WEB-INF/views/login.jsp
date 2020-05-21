@@ -9,12 +9,13 @@
 <html>
 <head>
     <title>Delivery Register Login</title>
+    <link href="/css/main.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg">
 <form method="post">
-    <div><label> User Name: <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+    <div align="center"><label> User Name: <input type="text" name="username"/> </label></div>
+    <div align="center"><label> Password: <input type="password" name="password"/> </label></div>
+    <div align="center"><button>Zaloguj</button></div>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 </body>

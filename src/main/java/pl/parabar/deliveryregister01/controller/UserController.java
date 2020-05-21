@@ -2,9 +2,7 @@ package pl.parabar.deliveryregister01.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pl.parabar.deliveryregister01.entity.User;
 import pl.parabar.deliveryregister01.service.CurrentUser;
 import pl.parabar.deliveryregister01.service.UserService;
@@ -45,7 +43,7 @@ public class UserController {
         return "done";
     }
 
-    @PostMapping("/dashboard")
+    @RequestMapping("/dashboard")
     public String admin(@AuthenticationPrincipal CurrentUser customUser) {
         User entityUser = customUser.getUser();
         return "dashboard";

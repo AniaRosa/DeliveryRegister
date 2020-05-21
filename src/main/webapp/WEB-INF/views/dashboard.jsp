@@ -18,14 +18,14 @@
 <table align="center">
     <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
         <tr>
-            <td><a href="/add-route" class="button">Dodaj trasę</a></td>
-            <td><a href="/add-odometer-reading" class="button">Dodaj stan licznika</a></td>
-            <td><a href="/add-refuel" class="button">Dodaj tankowanie</a></td>
+            <td><a href="/route/form" class="button">Dodaj trasę</a></td>
+            <td><a href="/odometer-reading/form" class="button">Dodaj stan licznika</a></td>
+            <td><a href="/refuel/form" class="button">Dodaj tankowanie</a></td>
         </tr>
         <tr>
-            <td><a href="/edit-route" class="button">Edytuj trasę</a></td>
-            <td><a href="/edit-odometer-reading" class="button">Edytuj stan licznika</a></td>
-            <td><a href="/edit-refuel" class="button">Edytuj tankowanie</a></td>
+            <td><a href="/route/list" class="button">Edytuj trasę</a></td>
+            <td><a href="/odometer-reading/list" class="button">Edytuj stan licznika</a></td>
+            <td><a href="/refuel/list" class="button">Edytuj tankowanie</a></td>
         </tr>
     </sec:authorize>
 
