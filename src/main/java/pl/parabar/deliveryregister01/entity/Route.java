@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "routes")
@@ -19,38 +20,31 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotEmpty
     @ManyToOne
     private User user;
 
-    @NotEmpty
     private String date;
 
-    @NotEmpty
     private String time;
 
-    @NotEmpty
-    @OneToOne
-    private Address address1;
+    private String address1;
 
-    @NotEmpty
-    @OneToOne
-    private Address address2;
+    private String address2;
 
-    @NotEmpty
-    @OneToOne
-    private Address address3;
+    private String address3;
 
-    @OneToOne
-    private Address address4;
+    private String address4;
 
-    @OneToOne
-    private Address address5;
+    private String address5;
 
-    @OneToOne
-    private Address address6;
+    private String address6;
 
-    @NotEmpty
-    @Min(1)
-    private double price;
+    private double price2;
+
+    private double price3;
+
+    private double price4;
+
+    private double price5;
+
 }
