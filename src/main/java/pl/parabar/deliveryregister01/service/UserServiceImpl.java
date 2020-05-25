@@ -7,9 +7,6 @@ import pl.parabar.deliveryregister01.entity.User;
 import pl.parabar.deliveryregister01.repository.RoleRepository;
 import pl.parabar.deliveryregister01.repository.UserRepository;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 @Service
 public class UserServiceImpl implements UserService {
 

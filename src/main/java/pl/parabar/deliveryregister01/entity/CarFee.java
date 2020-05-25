@@ -20,18 +20,14 @@ public class CarFee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotEmpty
     @ManyToOne
     private User user;
 
-    @NotEmpty
     private String date;
 
-    @NotEmpty
     @Min(1)
     private double fee;
 
-    @NotEmpty
     @Size(min = 5)
     private String description;
 }

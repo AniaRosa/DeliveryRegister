@@ -32,13 +32,13 @@
     <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
         <tr style="height: 20px"></tr>
         <tr>
-            <td><a href="/add-fee" class="button">Dodaj opłatę</a></td>
-            <td><a href="/add-driver" class="button">Dodaj użytkownika</a></td>
+            <td><a href="/car-fee/form" class="button">Dodaj opłatę</a></td>
+            <td><a href="/user/form-manager" class="button">Dodaj użytkownika</a></td>
             <td><a href="/get-reports" class="button">Pobierz raport</a></td>
         </tr>
         <tr>
-            <td><a href="/edit-fee" class="button">Edytuj opłatę</a></td>
-            <td><a href="/edit-driver" class="button">Edytuj użytkownika</a></td>
+            <td><a href="/car-fee/list" class="button">Edytuj opłatę</a></td>
+            <td><a href="/user/list" class="button">Edytuj użytkownika</a></td>
             <td></td>
         </tr>
     </sec:authorize>

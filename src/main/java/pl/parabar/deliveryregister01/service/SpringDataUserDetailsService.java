@@ -26,8 +26,6 @@ this.userService = userService;
         User user = userService.findByUsername(username);
         if (user == null) {throw new UsernameNotFoundException(username); }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-//        user.getRoles().forEach(r ->
-//                grantedAuthorities.add(new SimpleGrantedAuthority(r.getName())));
         Role role = user.getRole();
         grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         return new CurrentUser(user.getUsername(), user.getPassword(),
