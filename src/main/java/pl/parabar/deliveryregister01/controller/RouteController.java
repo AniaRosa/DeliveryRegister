@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-@RequestMapping("/route")
+@RequestMapping(value = "/route", produces = "text/plain;charset=utf-8")
 public class RouteController {
 
     @Autowired
@@ -40,22 +40,30 @@ public class RouteController {
         return deliveriesNumber;
     }
 
-    @GetMapping("/form/deliveries-number")
-    public String getDeliveriesNumber() {
-
+    @GetMapping("/form/deliveries-number/{id}")
+    public String getDeliveriesNumber(@PathVariable long id, Model model) {
+        if (id == 0) {
+            model.addAttribute("route", new Route());
+        } else {
+            model.addAttribute("route", routeRepository.findById(id));
+        }
         return "route/route-form-deliveries-number";
     }
 
-    @GetMapping("/form")
-    public String addRoute(@RequestParam long numberOfDeliveries) {
-        return "redirect:/route/form/" + numberOfDeliveries;
+    @GetMapping("/form/{id}")
+    public String addRoute(@RequestParam long numberOfDeliveries, @PathVariable long id) {
+        return "redirect:/route/form/" + numberOfDeliveries + "/" + id;
     }
 
-    @GetMapping("/form/{numberOfDeliveries}")
-    public String addRoute2(@PathVariable long numberOfDeliveries, Model model) {
+    @GetMapping("/form/{numberOfDeliveries}/{id}")
+    public String addRoute2(@PathVariable long numberOfDeliveries, @PathVariable long id, Model model) {
 
         model.addAttribute("numberOfDeliveries", numberOfDeliveries);
-        model.addAttribute("route", new Route());
+        if (id == 0) {
+            model.addAttribute("route", new Route());
+        } else {
+            model.addAttribute("route", routeRepository.findById(id));
+        }
         model.addAttribute("bar", "Katowicka 67C, Poznań");
 
         return "route/route-form";
@@ -70,6 +78,7 @@ public class RouteController {
                 route.setDate(createDate());
                 route.setTime(createTime());
                 route.setUser(customUser.getUser());
+                route.setDeliveries(numberOfDeliveries);
                 if (route.getAddress1().isEmpty()) {
                     route.setAddress1("Katowicka 67C, Poznań");
                 }
@@ -106,10 +115,12 @@ public class RouteController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editRoute(@PathVariable long id,  Model model) {
+    public String editRoute(@PathVariable long id, Model model) {
         Route route = routeRepository.findById(id);
+        long numberOfDeliveries = route.getDeliveries();
         model.addAttribute("route", route);
-        return "route/route-form-deliveries-number";
+        model.addAttribute("numberOfDeliveries", numberOfDeliveries);
+        return "route/route-form";
     }
 
 }

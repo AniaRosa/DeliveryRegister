@@ -63,9 +63,10 @@
             <p><form:hidden path="user" /></p>
             <p><form:hidden path="date" /></p>
             <p><form:hidden path="time" /></p>
+            <p><form:hidden path="deliveries" /></p>
 
             <tr>
-                <td><button>Prześlij!</button></td>
+                <td><a href="/route/form/deliveries-number/${route.id}" class="button">Cofnij!</a> <button>Prześlij!</button></td>
             </tr>
 
         </table>

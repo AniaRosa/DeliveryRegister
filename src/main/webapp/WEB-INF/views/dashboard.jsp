@@ -18,7 +18,7 @@
 <table align="center">
     <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
         <tr>
-            <td><a href="/route/form/deliveries-number" class="button">Dodaj trasę</a></td>
+            <td><a href="/route/form/deliveries-number/0" class="button">Dodaj trasę</a></td>
             <td><a href="/odometer-reading/form" class="button">Dodaj stan licznika</a></td>
             <td><a href="/refuel/form" class="button">Dodaj tankowanie</a></td>
         </tr>

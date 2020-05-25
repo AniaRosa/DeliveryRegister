@@ -17,7 +17,7 @@
 
 <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
 
-    <form action="/route/form" method="get">
+    <form action="/route/form/${route.id}" method="get">
         <table align="center">
             <tr>
                 <td>Zaznacz liczbę dostaw:

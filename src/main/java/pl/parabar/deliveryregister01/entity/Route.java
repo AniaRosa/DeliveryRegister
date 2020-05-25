@@ -47,4 +47,6 @@ public class Route {
 
     private double price5;
 
+    private long deliveries;
+
 }
