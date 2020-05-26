@@ -15,9 +15,9 @@
 </head>
 <body class="bg">
 
-<sec:authorize access="hasAnyRole('ADMIN')">
+<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
 
-    <form:form method="post" action="/user/form-manager" modelAttribute="user">
+    <form:form method="post" action="/user/form-driver" modelAttribute="user">
         <table align="center">
             <tr>
                 <td class="errorMessage">${usernameExists}</td>

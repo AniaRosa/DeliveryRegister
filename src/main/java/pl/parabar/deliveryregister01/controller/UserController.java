@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.parabar.deliveryregister01.entity.Role;
 import pl.parabar.deliveryregister01.entity.User;
 import pl.parabar.deliveryregister01.repository.RoleRepository;
 import pl.parabar.deliveryregister01.repository.UserRepository;
@@ -15,6 +14,7 @@ import pl.parabar.deliveryregister01.service.TimeService;
 import pl.parabar.deliveryregister01.service.UserService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller()
@@ -40,29 +40,96 @@ public class UserController {
         return timeService.getDate();
     }
 
+    public List<String> getUsernames() {
+        List<User> users = userRepository.findAll();
+        List<String> usernames = new ArrayList<>();
+        for (User u : users) {
+            usernames.add(u.getFirstName());
+        }
+        return usernames;
+    }
+
+    @GetMapping("/form-driver")
+    public String addDriver(Model model) {
+
+        model.addAttribute("user", new User());
+        return "user/user-form-driver";
+    }
+
+    @PostMapping("/form-driver")
+    public String addDriverProceed(@ModelAttribute @Valid User user,
+                                   BindingResult result,
+                                   @AuthenticationPrincipal CurrentUser customUser,
+                                   Model model) {
+        if (!result.hasErrors()) {
+            String usernameToCheck = user.getUsername();
+            for (String u : getUsernames()) {
+                if (u.equals(usernameToCheck)) {
+                    model.addAttribute("usernameExists", "Użytkownik o takiej nazwie już istnieje");
+                    return "user/user-form-driver";
+                }
+            }
+            userService.saveUser(user, "ROLE_DRIVER");
+            return "redirect:/user/list";
+        } else {
+            return "user/user-form-driver";
+        }
+    }
+
     @GetMapping("/form-manager")
-    public String addUser(Model model) {
+    public String addManager(Model model) {
 
         model.addAttribute("user", new User());
         return "user/user-form-manager";
     }
 
     @PostMapping("/form-manager")
-    public String addUserProceed(@ModelAttribute @Valid User user,
-                                   BindingResult result,
-                                   @AuthenticationPrincipal CurrentUser customUser) {
+    public String addManagerProceed(@ModelAttribute @Valid User user,
+                                    BindingResult result,
+                                    @AuthenticationPrincipal CurrentUser customUser,
+                                    Model model) {
         if (!result.hasErrors()) {
-            if (user.getId() == 0) {
-//                Role userRole = roleRepository.findByName("ROLE_DRIVER");
-//                user.setEnabled(1);
-//                user.setRole(userRole);
+            String usernameToCheck = user.getUsername();
+            for (String u : getUsernames()) {
+                if (u.equals(usernameToCheck)) {
+                    model.addAttribute("usernameExists", "Użytkownik o takiej nazwie już istnieje");
+                    return "user/user-form-manager";
+                }
             }
-            userService.saveUser(user, "ROLE_DRIVER");
+            userService.saveUser(user, "ROLE_MANAGER");
             return "redirect:/user/list";
         } else {
             return "user/user-form-manager";
         }
     }
+
+    @GetMapping("/form-admin")
+    public String addAdmin(Model model) {
+
+        model.addAttribute("user", new User());
+        return "user/user-form-admin";
+    }
+
+    @PostMapping("/form-admin")
+    public String addAdminProceed(@ModelAttribute @Valid User user,
+                                 BindingResult result,
+                                 @AuthenticationPrincipal CurrentUser customUser,
+                                  Model model) {
+        if (!result.hasErrors()) {
+            String usernameToCheck = user.getUsername();
+            for (String u : getUsernames()) {
+                if (u.equals(usernameToCheck)) {
+                    model.addAttribute("usernameExists", "Użytkownik o takiej nazwie już istnieje");
+                    return "user/user-form-admin";
+                }
+            }
+            userService.saveUser(user, "ROLE_ADMIN");
+            return "redirect:/user/list";
+        } else {
+            return "user/user-form-admin";
+        }
+    }
+
 
     @GetMapping("/list")
     public String userList(Model model) {
@@ -88,7 +155,7 @@ public class UserController {
     public String editUser(@PathVariable long id,  Model model) {
         User user = userRepository.findById(id);
         model.addAttribute("user", user);
-        return "user/user-form-manager";
+        return "user/user-form-driver";
     }
 
 

@@ -9,6 +9,8 @@ public interface CarFeeRepository extends JpaRepository<CarFee, Long> {
 
     List<CarFee> findAllByDate(String date);
 
+    List<CarFee> findAllByDateBetween(String date1, String date2);
+
     List<CarFee> findAll();
 
     CarFee findById(long id);

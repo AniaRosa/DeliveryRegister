@@ -17,7 +17,7 @@
 
 <sec:authorize access="hasAnyRole('ADMIN')">
 
-    <form:form method="post" action="/user/form-manager" modelAttribute="user">
+    <form:form method="post" action="/user/form-admin" modelAttribute="user">
         <table align="center">
             <tr>
                 <td class="errorMessage">${usernameExists}</td>

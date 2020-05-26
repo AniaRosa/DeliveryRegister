@@ -1,13 +1,10 @@
 package pl.parabar.deliveryregister01.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")

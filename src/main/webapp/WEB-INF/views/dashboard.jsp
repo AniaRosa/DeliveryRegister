@@ -33,8 +33,8 @@
         <tr style="height: 20px"></tr>
         <tr>
             <td><a href="/car-fee/form" class="button">Dodaj opłatę</a></td>
-            <td><a href="/user/form-manager" class="button">Dodaj użytkownika</a></td>
-            <td><a href="/get-reports" class="button">Pobierz raport</a></td>
+            <td><a href="/user/form-driver" class="button">Dodaj użytkownika</a></td>
+            <td><a href="/reports/form" class="button">Pobierz raport</a></td>
         </tr>
         <tr>
             <td><a href="/car-fee/list" class="button">Edytuj opłatę</a></td>
@@ -46,13 +46,8 @@
     <sec:authorize access="hasRole('ADMIN')">
         <tr style="height: 20px"></tr>
         <tr>
-            <td></td>
-            <td><a href="/add-manager" class="button">Dodaj managera</a></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><a href="/edit-manager" class="button">Edytuj managera</a></td>
+            <td><a href="/user/form-manager" class="button">Dodaj managera</a></td>
+            <td><a href="/user/form-admin" class="button">Dodaj admina</a></td>
             <td></td>
         </tr>
     </sec:authorize>
