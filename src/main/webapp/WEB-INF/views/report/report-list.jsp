@@ -17,26 +17,62 @@
 <body class="bg">
 
 <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+    <p align="center" class="errorMessage">${error}</p>
      <table align="center">
          <tr>
              <th>Data</th>
              <th>Opłata</th>
              <th>Opis</th>
              <th>Użytkownik</th>
-             <th>Akcja</th>
          </tr>
-            <c:forEach items="${fees}" var="fee" >
+            <c:forEach items="${feesList1}" var="fee" >
                 <tr>
                     <td>    ${fee.date} </td>
                     <td>    ${fee.fee} </td>
                     <td>    ${fee.description}  </td>
                     <td>    ${fee.user.username}  </td>
-                    <td>
-                        <a href="/car-fee/edit/${fee.id}" class="button">Edytuj</a>
-                        <a href="/car-fee/confirm-delete/${fee.id}" class="button">Usuń</a>
-                    </td>
                 </tr>
             </c:forEach>
+         <tr>
+             <th>Suma: </th>
+             <th>${feesTotal1}</th>
+             <td></td>
+             <td></td>
+         </tr>
+         <tr>
+             <th>Przychód z dostaw: </th>
+             <th>${income1}</th>
+             <td></td>
+             <td></td>
+         </tr>
+         <c:if test="${type == '2'}">
+             <tr>
+                 <td> ------------------------------- </td>
+                 <td> ------------------------------- </td>
+                 <td> ------------------------------- </td>
+                 <td> ------------------------------- </td>
+             </tr>
+             <c:forEach items="${feesList2}" var="fee" >
+                 <tr>
+                     <td>    ${fee.date} </td>
+                     <td>    ${fee.fee} </td>
+                     <td>    ${fee.description}  </td>
+                     <td>    ${fee.user.username}  </td>
+                 </tr>
+             </c:forEach>
+             <tr>
+                 <th>Suma: </th>
+                 <th>${feesTotal2}</th>
+                 <td></td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <th>Przychód z dostaw: </th>
+                 <th>${income2}</th>
+                 <td></td>
+                 <td></td>
+             </tr>
+         </c:if>
         </table>
     <table align="center">
         <tr>
