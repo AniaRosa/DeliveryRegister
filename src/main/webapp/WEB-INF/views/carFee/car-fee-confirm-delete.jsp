@@ -12,37 +12,40 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Potwierdzenie usunięcia opłaty</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
-
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
-     <table align="center">
-         <tr>
-             <th>Czy na pewno chcesz usunąć poniższy wpis?</th>
-         </tr>
-         <tr>
-             <td>Data: ${carFee.date}</td>
-         </tr>
-         <tr>
-             <td>Opłata: ${carFee.fee}</td>
-         </tr>
-         <tr>
-             <td>Opis: ${carFee.description}</td>
-         </tr>
-         <tr>
-             <td>
-                 <a href="/car-fee/delete/${carFee.id}" class="button">Tak   </a>
-                 <a href="/car-fee/list" class="button"> Anuluj</a>
-             </td>
-         </tr>
-     </table>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+         <table>
+             <tr>
+                 <td>Czy na pewno chcesz usunąć poniższy wpis?</td>
+             </tr>
+             <tr>
+                 <td>Data: ${carFee.date}</td>
+             </tr>
+             <tr>
+                 <td>Opłata: ${carFee.fee}</td>
+             </tr>
+             <tr>
+                 <td>Opis: ${carFee.description}</td>
+             </tr>
+             <tr>
+                 <td>
+                     <a href="/car-fee/delete/${carFee.id}" class="button">Tak   </a>
+                     <a href="/car-fee/list" class="button"> Anuluj</a>
+                 </td>
+             </tr>
+         </table>
+        <table>
+            <tr>
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
+            </tr>
+        </table>
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

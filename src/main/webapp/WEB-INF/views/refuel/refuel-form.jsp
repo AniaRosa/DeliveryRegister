@@ -11,47 +11,50 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Dodawanie odczytu licznika</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
 
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
+        <form:form method="post" action="/refuel/form" modelAttribute="refuel">
+            <table>
+                <tr>
+                    <td>Rodzaj paliwa: <form:select path="fuelType" items="${fuelTypes}" />
+                        <form:errors path="fuelType" cssClass="errorMessage" />
+                    </td>
+                    <td>Ilość: <form:input path="quantity" />
+                        <form:errors path="quantity" cssClass="errorMessage" />
+                    </td>
+                    <td>Koszt: <form:input path="price" />
+                        <form:errors path="price" cssClass="errorMessage" />
+                    </td>
+                </tr>
 
-    <form:form method="post" action="/refuel/form" modelAttribute="refuel">
-        <table align="center">
+                <tr style="height: 20px"></tr>
+
+                    <p><form:hidden path="id" /></p>
+                    <p><form:hidden path="user" /></p>
+                    <p><form:hidden path="date" /></p>
+                    <p><form:hidden path="time" /></p>
+
+                <tr>
+                    <td></td>
+                    <td><button class="button">Prześlij!</button></td>
+                    <td></td>
+                </tr>
+
+            </table>
+        </form:form>
+        <table>
             <tr>
-                <td>Rodzaj paliwa: <form:select path="fuelType" items="${fuelTypes}" />
-                    <form:errors path="fuelType" cssClass="errorMessage" />
-                </td>
-                <td>Ilość: <form:input path="quantity" />
-                    <form:errors path="quantity" cssClass="errorMessage" />
-                </td>
-                <td>Koszt: <form:input path="price" />
-                    <form:errors path="price" cssClass="errorMessage" />
-                </td>
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
             </tr>
-
-            <tr style="height: 20px"></tr>
-
-                <p><form:hidden path="id" /></p>
-                <p><form:hidden path="user" /></p>
-                <p><form:hidden path="date" /></p>
-                <p><form:hidden path="time" /></p>
-
-            <tr>
-                <td></td>
-                <td><button>Prześlij!</button></td>
-                <td></td>
-            </tr>
-
         </table>
-    </form:form>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

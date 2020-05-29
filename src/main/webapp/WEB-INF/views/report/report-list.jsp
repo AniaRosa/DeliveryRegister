@@ -12,74 +12,70 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Spis opłat</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
-
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
-    <p align="center" class="errorMessage">${error}</p>
-     <table align="center">
-         <tr>
-             <th>Data</th>
-             <th>Opłata</th>
-             <th>Opis</th>
-             <th>Użytkownik</th>
-         </tr>
-            <c:forEach items="${feesList1}" var="fee" >
-                <tr>
-                    <td>    ${fee.date} </td>
-                    <td>    ${fee.fee} </td>
-                    <td>    ${fee.description}  </td>
-                    <td>    ${fee.user.username}  </td>
-                </tr>
-            </c:forEach>
-         <tr>
-             <th>Suma: </th>
-             <th>${feesTotal1}</th>
-             <td></td>
-             <td></td>
-         </tr>
-         <tr>
-             <th>Przychód z dostaw: </th>
-             <th>${income1}</th>
-             <td></td>
-             <td></td>
-         </tr>
-         <c:if test="${type == '2'}">
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+         <table class="list">
              <tr>
-                 <td> ------------------------------- </td>
-                 <td> ------------------------------- </td>
-                 <td> ------------------------------- </td>
-                 <td> ------------------------------- </td>
+                 <th>Data</th>
+                 <th>Opłata</th>
+                 <th>Opis</th>
+                 <th>Użytkownik</th>
              </tr>
-             <c:forEach items="${feesList2}" var="fee" >
-                 <tr>
-                     <td>    ${fee.date} </td>
-                     <td>    ${fee.fee} </td>
-                     <td>    ${fee.description}  </td>
-                     <td>    ${fee.user.username}  </td>
-                 </tr>
-             </c:forEach>
+                <c:forEach items="${feesList1}" var="fee" >
+                    <tr>
+                        <td>    ${fee.date} </td>
+                        <td>    ${fee.fee} </td>
+                        <td>    ${fee.description}  </td>
+                        <td>    ${fee.user.username}  </td>
+                    </tr>
+                </c:forEach>
              <tr>
-                 <th>Suma: </th>
-                 <th>${feesTotal2}</th>
+                 <th>Suma opłat: </th>
+                 <th>${feesTotal1}</th>
                  <td></td>
                  <td></td>
              </tr>
              <tr>
                  <th>Przychód z dostaw: </th>
-                 <th>${income2}</th>
+                 <th>${income1}</th>
                  <td></td>
                  <td></td>
              </tr>
-         </c:if>
+             <c:if test="${type == '2'}">
+                 <c:forEach items="${feesList2}" var="fee" >
+                     <tr>
+                         <td>    ${fee.date} </td>
+                         <td>    ${fee.fee} </td>
+                         <td>    ${fee.description}  </td>
+                         <td>    ${fee.user.username}  </td>
+                     </tr>
+                 </c:forEach>
+                 <tr>
+                     <th>Suma opłat: </th>
+                     <th>${feesTotal2}</th>
+                     <td></td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <th>Przychód z dostaw: </th>
+                     <th>${income2}</th>
+                     <td></td>
+                     <td></td>
+                 </tr>
+             </c:if>
+            </table>
+        <table>
+            <tr>
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
+            </tr>
         </table>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

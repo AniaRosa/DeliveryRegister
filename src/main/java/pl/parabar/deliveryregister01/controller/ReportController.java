@@ -78,86 +78,116 @@ public class ReportController {
                                    BindingResult result,
                                    Model model) {
 
-        int year1 = 0;
-        int year2 = 0;
-        int month1 = 0;
-        int month2 = 0;
-
         if (report.getYears().size() == 0) {
             model.addAttribute("error", "Brak wskazanego roku");
-        } else if (report.getYears().size() == 1) {
-            year1 += report.getYears().get(0);
-        } else if (report.getYears().size() == 2) {
-            year2 += report.getYears().get(1);
+            return "report/report-form";
+
+        } else {
+            int year1 = 0;
+            int year2 = 0;
+            int month1 = 0;
+
+            if (report.getYears().size() == 1) {
+                year1 += report.getYears().get(0);
+            } else if (report.getYears().size() == 2) {
+                year1 += report.getYears().get(0);
+                year2 += report.getYears().get(1);
+            }
+
+            if (report.getMonths().size() == 1) {
+                month1 += report.getMonths().get(0);
+            }
+
+            List<CarFee> fees = new ArrayList<>();
+            List<Route> routes = new ArrayList<>();
+            double feesTotal1 = 0;
+            double income1 = 0;
+            double feesTotal2 = 0;
+            double income2 = 0;
+
+            if (report.getType().equals("miesiąc")) {
+
+                if (month1 == 0) {
+                    model.addAttribute("error", "Brak wskazanego miesiąca");
+                    return "report/report-form";
+                }
+
+                String monthDayFirst = String.valueOf(YearMonth.of(year1, month1).atDay(1));
+                String monthDayLast = String.valueOf(YearMonth.of(year1, month1).atEndOfMonth());
+                fees = carFeeRepository.findAllByDateBetween(monthDayFirst, monthDayLast);
+                routes = routeRepository.findAllByDateBetween(monthDayFirst, monthDayLast);
+
+                feesTotal1 = getFeesTotal(fees);
+                income1 = getIncome(routes);
+
+                model.addAttribute("feesList1", fees);
+                model.addAttribute("type", 1);
+
+            } else if (report.getType().equals("rok")) {
+
+                fees = carFeeRepository.findAllByDateContaining(year1);
+                routes = routeRepository.findAllByDateContaining(year1);
+
+                feesTotal1 = getFeesTotal(fees);
+                income1 = getIncome(routes);
+
+                model.addAttribute("feesList1", fees);
+                model.addAttribute("type", 1);
+
+            } else if (report.getType().equals("miesiąc do miesiąca")) {
+
+                if (month1 == 0) {
+                    model.addAttribute("error", "Brak wskazanego miesiąca");
+                    return "report/report-form";
+                }
+
+                String year1MonthDayFirst = String.valueOf(YearMonth.of(year1, month1).atDay(1));
+                String year1MonthDayLast = String.valueOf(YearMonth.of(year1, month1).atEndOfMonth());
+                String year2MonthDayFirst = String.valueOf(YearMonth.of(year2, month1).atDay(1));
+                String year2MonthDayLast = String.valueOf(YearMonth.of(year2, month1).atEndOfMonth());
+
+                List<CarFee> feesFromYear1 = carFeeRepository.findAllByDateBetween(year1MonthDayFirst, year1MonthDayLast);
+                List<CarFee> feesFromYear2 = carFeeRepository.findAllByDateBetween(year2MonthDayFirst, year2MonthDayLast);
+                List<Route> routesFromYear1 = routeRepository.findAllByDateBetween(year1MonthDayFirst, year1MonthDayLast);
+                List<Route> routesFromYear2 = routeRepository.findAllByDateBetween(year2MonthDayFirst, year2MonthDayLast);
+
+                feesTotal1 = getFeesTotal(feesFromYear1);
+                feesTotal2 = getFeesTotal(feesFromYear2);
+                income1 = getIncome(routesFromYear1);
+                income2 = getIncome(routesFromYear2);
+
+                model.addAttribute("feesList1", feesFromYear1);
+                model.addAttribute("feesList2", feesFromYear2);
+                model.addAttribute("type", 2);
+            } else if (report.getType().equals("rok do roku")) {
+
+                if (year2 == 0) {
+                    model.addAttribute("error", "Wskazano tylko jeden rok");
+                    return "report/report-form";
+                }
+
+                List<CarFee> feesFromYear1 = carFeeRepository.findAllByDateContaining(year1);
+                List<CarFee> feesFromYear2 = carFeeRepository.findAllByDateContaining(year2);
+                List<Route> routesFromYear1 = routeRepository.findAllByDateContaining(year1);
+                List<Route> routesFromYear2 = routeRepository.findAllByDateContaining(year2);
+
+                feesTotal1 = getFeesTotal(feesFromYear1);
+                feesTotal2 = getFeesTotal(feesFromYear2);
+                income1 = getIncome(routesFromYear1);
+                income2 = getIncome(routesFromYear2);
+
+                model.addAttribute("feesList1", feesFromYear1);
+                model.addAttribute("feesList2", feesFromYear2);
+                model.addAttribute("type", 2);
+            }
+
+
+            model.addAttribute("feesTotal1", feesTotal1);
+            model.addAttribute("feesTotal2", feesTotal2);
+            model.addAttribute("income1", income1);
+            model.addAttribute("income2", income2);
+            return "report/report-list";
         }
-
-        if (report.getMonths().size() == 0) {
-            model.addAttribute("error", "Brak wskazanego miesiąca");
-        } else if (report.getMonths().size() == 1) {
-            month1 += report.getMonths().get(0);
-        } else if (report.getMonths().size() == 2) {
-            month2 += report.getMonths().get(1);
-        }
-
-        List<CarFee> fees = new ArrayList<>();
-        List<Route> routes = new ArrayList<>();
-        double feesTotal1 = 0;
-        double income1 = 0;
-        double feesTotal2 = 0;
-        double income2 = 0;
-
-        if (report.getType().equals("miesiąc")) {
-
-            String monthDayFirst = String.valueOf(YearMonth.of(year1, month1).atDay(1));
-            String monthDayLast = String.valueOf(YearMonth.of(year1, month1).atEndOfMonth());
-            fees = carFeeRepository.findAllByDateBetween(monthDayFirst, monthDayLast);
-            routes = routeRepository.findAllByDateBetween(monthDayFirst, monthDayLast);
-
-            feesTotal1 = getFeesTotal(fees);
-            income1 = getIncome(routes);
-
-            model.addAttribute("feesList1", fees);
-            model.addAttribute("type", 1);
-
-        } else if (report.getType().equals("rok")) {
-
-            fees = carFeeRepository.findAllByDateContaining(year1);
-            routes = routeRepository.findAllByDateContaining(year1);
-
-            feesTotal1 = getFeesTotal(fees);
-            income1 = getIncome(routes);
-
-            model.addAttribute("feesList1", fees);
-            model.addAttribute("type", 1);
-
-        } else if (report.getType().equals("miesiąc do miesiąca")) {
-
-            String year1MonthDayFirst = String.valueOf(YearMonth.of(year1, month1).atDay(1));
-            String year1MonthDayLast = String.valueOf(YearMonth.of(year1, month1).atEndOfMonth());
-            String year2MonthDayFirst = String.valueOf(YearMonth.of(year2, month1).atDay(1));
-            String year2MonthDayLast = String.valueOf(YearMonth.of(year2, month1).atEndOfMonth());
-
-            List<CarFee> feesFromYear1 = carFeeRepository.findAllByDateBetween(year1MonthDayFirst, year1MonthDayLast);
-            List<CarFee> feesFromYear2 = carFeeRepository.findAllByDateBetween(year2MonthDayFirst, year2MonthDayLast);
-            List<Route> routesFromYear1 = routeRepository.findAllByDateBetween(year1MonthDayFirst, year1MonthDayLast);
-            List<Route> routesFromYear2 = routeRepository.findAllByDateBetween(year2MonthDayFirst, year2MonthDayLast);
-
-            feesTotal1 = getFeesTotal(feesFromYear1);
-            feesTotal2 = getFeesTotal(feesFromYear2);
-            income1 = getIncome(routesFromYear1);
-            income2 = getIncome(routesFromYear2);
-
-            model.addAttribute("feesList1", feesFromYear1);
-            model.addAttribute("feesList2", feesFromYear2);
-            model.addAttribute("type", 2);
-        }
-
-
-        model.addAttribute("feesTotal1", feesTotal1);
-        model.addAttribute("feesTotal2", feesTotal2);
-        model.addAttribute("income1", income1);
-        model.addAttribute("income2", income2);
-        return "report/report-list";
     }
 
     public double getFeesTotal(List<CarFee> fees) {

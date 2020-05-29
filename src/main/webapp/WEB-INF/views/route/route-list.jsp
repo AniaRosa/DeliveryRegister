@@ -12,45 +12,50 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Dodawanie odczytu licznika</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
-
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
-     <table align="center">
-         <tr>
-             <th>Data</th>
-             <th>Godzina</th>
-             <th>Adres startowy</th>
-             <th>Adres pierwszej dostawy</th>
-             <th>Adres drugiej dostawy</th>
-             <th>Adres trzeciej dostawy</th>
-             <th>Adres czwartej dostawy</th>
-             <th>Akcja</th>
-         </tr>
-            <c:forEach items="${routeByDate}" var="route" >
-                <tr>
-                    <td>    ${route.date} </td>
-                    <td>    ${route.time} </td>
-                    <td>    ${route.address1}  </td>
-                    <td>    ${route.address2}  </td>
-                    <td>    ${route.address3}  </td>
-                    <td>    ${route.address4}  </td>
-                    <td>    ${route.address5}  </td>
-                    <td>    ${route.address6}  </td>
-                    <td>
-                        <a href="/route/edit/${route.id}" class="button">Edytuj</a>
-                        <a href="/route/confirm-delete/${route.id}" class="button">Usuń</a>
-                    </td>
-                </tr>
-            </c:forEach>
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
+         <table class="list">
+             <tr>
+                 <th>Data</th>
+                 <th>Godzina</th>
+                 <th>Adres startowy</th>
+                 <th>Adres pierwszej dostawy</th>
+                 <th>Adres drugiej dostawy</th>
+                 <th>Adres trzeciej dostawy</th>
+                 <th>Adres czwartej dostawy</th>
+                 <th>Adres końcowy</th>
+                 <th>Akcja</th>
+             </tr>
+                <c:forEach items="${routeByDate}" var="route" >
+                    <tr>
+                        <td>    ${route.date} </td>
+                        <td>    ${route.time} </td>
+                        <td>    ${route.address1}  </td>
+                        <td>    ${route.address2}  </td>
+                        <td>    ${route.address3}  </td>
+                        <td>    ${route.address4}  </td>
+                        <td>    ${route.address5}  </td>
+                        <td>    ${route.address6}  </td>
+                        <td>
+                            <a href="/route/edit/${route.id}" class="link">Edytuj</a>
+                            <br>
+                            <a href="/route/confirm-delete/${route.id}" class="link">Usuń</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        <table>
+            <tr>
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
+            </tr>
         </table>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

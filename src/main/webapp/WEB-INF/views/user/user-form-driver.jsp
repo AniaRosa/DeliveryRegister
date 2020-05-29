@@ -11,48 +11,51 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Dodawanie opłaty</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
 
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+        <form:form method="post" action="/user/form-driver" modelAttribute="user">
+            <table>
+                <tr>
+                    <td class="errorMessage">${usernameExists}</td>
+                </tr>
+                <tr>
+                    <td>Imię: <form:input path="firstName" />
+                        <form:errors path="firstName" cssClass="errorMessage" /></td>
+                </tr>
+                <tr>
+                    <td>Nazwisko: <form:input path="lastName" />
+                        <form:errors path="lastName" cssClass="errorMessage" /></td>
+                </tr>
+                <tr>
+                    <td>Nazwa użytkownika: <form:input path="username" />
+                        <form:errors path="username" cssClass="errorMessage" /></td>
+                </tr>
+                <tr>
+                    <td>Hasło: <form:input path="password" />
+                        <form:errors path="password" cssClass="errorMessage" /></td>
+                </tr>
+                <tr style="height: 20px"></tr>
 
-    <form:form method="post" action="/user/form-driver" modelAttribute="user">
-        <table align="center">
-            <tr>
-                <td class="errorMessage">${usernameExists}</td>
-            </tr>
-            <tr>
-                <td>Imię: <form:input path="firstName" />
-                    <form:errors path="firstName" cssClass="errorMessage" /></td>
-            </tr>
-            <tr>
-                <td>Nazwisko: <form:input path="lastName" />
-                    <form:errors path="lastName" cssClass="errorMessage" /></td>
-            </tr>
-            <tr>
-                <td>Nazwa użytkownika: <form:input path="username" />
-                    <form:errors path="username" cssClass="errorMessage" /></td>
-            </tr>
-            <tr>
-                <td>Hasło: <form:input path="password" />
-                    <form:errors path="password" cssClass="errorMessage" /></td>
-            </tr>
-            <tr style="height: 20px"></tr>
+                    <p><form:hidden path="id" /></p>
+                <tr>
+                    <td><button class="button">Prześlij!</button></td>
+                </tr>
 
-                <p><form:hidden path="id" /></p>
+            </table>
+        </form:form>
+        <table>
             <tr>
-                <td><button>Prześlij!</button></td>
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
             </tr>
-
         </table>
-    </form:form>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

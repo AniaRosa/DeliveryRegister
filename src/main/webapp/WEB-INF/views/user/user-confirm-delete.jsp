@@ -12,37 +12,40 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Potwierdzenie usunięcia opłaty</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
-
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
-     <table align="center">
-         <tr>
-             <th>Czy na pewno chcesz usunąć poniższego uzytkownika?</th>
-         </tr>
-         <tr>
-             <td>Imię: ${user.firstName}</td>
-         </tr>
-         <tr>
-             <td>Nazwisko: ${user.lastName}</td>
-         </tr>
-         <tr>
-             <td>Nazwa użytkownika: ${user.username}</td>
-         </tr>
-         <tr>
-             <td>
-                 <a href="/user/delete/${user.id}" class="button">Tak   </a>
-                 <a href="/user/list" class="button"> Anuluj</a>
-             </td>
-         </tr>
-     </table>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+         <table>
+             <tr>
+                 <td>Czy na pewno chcesz usunąć poniższego uzytkownika?</td>
+             </tr>
+             <tr>
+                 <td>Imię: ${user.firstName}</td>
+             </tr>
+             <tr>
+                 <td>Nazwisko: ${user.lastName}</td>
+             </tr>
+             <tr>
+                 <td>Nazwa użytkownika: ${user.username}</td>
+             </tr>
+             <tr>
+                 <td>
+                     <a href="/user/delete/${user.id}" class="button">Tak   </a>
+                     <a href="/user/list" class="button"> Anuluj</a>
+                 </td>
+             </tr>
+         </table>
+        <table>
+            <tr>
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
+            </tr>
+        </table>
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

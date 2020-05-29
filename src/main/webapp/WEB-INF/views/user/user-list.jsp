@@ -12,38 +12,42 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Spis opłat</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
-
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
-     <table align="center">
-         <tr>
-             <th>Imię</th>
-             <th>Nazwisko</th>
-             <th>Nazwa użytkownika</th>
-             <th>Rola</th>
-             <th>Akcja</th>
-         </tr>
-            <c:forEach items="${users}" var="user" >
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+        <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+             <table class="list">
+                 <tr>
+                     <th>Imię</th>
+                     <th>Nazwisko</th>
+                     <th>Nazwa użytkownika</th>
+                     <th>Rola</th>
+                     <th>Akcja</th>
+                 </tr>
+                    <c:forEach items="${users}" var="user" >
+                        <tr>
+                            <td>    ${user.firstName} </td>
+                            <td>    ${user.lastName} </td>
+                            <td>    ${user.username}  </td>
+                            <td>    ${user.role.name}  </td>
+                            <td>
+                                <a href="/user/edit/${user.id}" class="link">Edytuj</a>
+                                <br>
+                                <a href="/user/confirm-delete/${user.id}" class="link">Usuń</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            <table>
                 <tr>
-                    <td>    ${user.firstName} </td>
-                    <td>    ${user.lastName} </td>
-                    <td>    ${user.username}  </td>
-                    <td>    ${user.role.name}  </td>
-                    <td>
-                        <a href="/user/edit/${user.id}" class="button">Edytuj</a>
-                        <a href="/user/confirm-delete/${user.id}" class="button">Usuń</a>
-                    </td>
+                    <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
                 </tr>
-            </c:forEach>
-        </table>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+            </table>
+        </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

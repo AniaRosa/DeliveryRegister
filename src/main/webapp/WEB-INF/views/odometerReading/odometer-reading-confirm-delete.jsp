@@ -12,37 +12,40 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Dodawanie odczytu licznika</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
-
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
-     <table align="center">
-         <tr>
-             <th>Czy na pewno chcesz usunąć poniższy wpis?</th>
-         </tr>
-         <tr>
-             <td>Data: ${odometerReading.date}</td>
-         </tr>
-         <tr>
-             <td>Czas: ${odometerReading.time}</td>
-         </tr>
-         <tr>
-             <td>Stan licznika: ${odometerReading.kms}</td>
-         </tr>
-         <tr>
-             <td>
-                 <a href="/odometer-reading/delete/${odometerReading.id}" class="button">Tak   </a>
-                 <a href="/odometer-reading/list" class="button"> Anuluj</a>
-             </td>
-         </tr>
-     </table>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
+         <table>
+             <tr>
+                 <td>Czy na pewno chcesz usunąć poniższy wpis?</td>
+             </tr>
+             <tr>
+                 <td>Data: ${odometerReading.date}</td>
+             </tr>
+             <tr>
+                 <td>Czas: ${odometerReading.time}</td>
+             </tr>
+             <tr>
+                 <td>Stan licznika: ${odometerReading.kms}</td>
+             </tr>
+             <tr>
+                 <td>
+                     <a href="/odometer-reading/delete/${odometerReading.id}" class="button">Tak   </a>
+                     <a href="/odometer-reading/list" class="button"> Anuluj</a>
+                 </td>
+             </tr>
+         </table>
+        <table align="center">
+            <tr>
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
+            </tr>
+        </table>
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

@@ -9,11 +9,16 @@
 <html>
 <head>
     <title>Delivery Register</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="head.jsp"%>
 </head>
 <body class="bg">
-<p align="center" >
-    <a href="/login" class="button">Zaloguj!</a>
-</p>
+    <div class="container">
+        <%@include file="logo.jsp"%>
+            <p align="center" >
+                <a href="/login" class="button">Zaloguj!</a>
+            </p>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

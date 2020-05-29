@@ -11,40 +11,43 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Dodawanie trasy</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
 
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
+        <form action="/route/form/${route.id}" method="get">
+            <table>
+                <tr>
+                    <td>Zaznacz liczbę dostaw:
+                        <input type="radio" id="1" name="numberOfDeliveries" value="1">
+                        <label for="1">1</label>
+                        <input type="radio" id="2" name="numberOfDeliveries" value="2">
+                        <label for="2">2</label>
+                        <input type="radio" id="3" name="numberOfDeliveries" value="3">
+                        <label for="3">3</label>
+                        <input type="radio" id="4" name="numberOfDeliveries" value="4">
+                        <label for="4">4</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <button class="button">Dalej ...</button>
+                    </td>
+                </tr>
 
-    <form action="/route/form/${route.id}" method="get">
-        <table align="center">
+            </table>
+        </form>
+        <table>
             <tr>
-                <td>Zaznacz liczbę dostaw:
-                    <input type="radio" id="1" name="numberOfDeliveries" value="1">
-                    <label for="1">1</label>
-                    <input type="radio" id="2" name="numberOfDeliveries" value="2">
-                    <label for="2">2</label>
-                    <input type="radio" id="3" name="numberOfDeliveries" value="3">
-                    <label for="3">3</label>
-                    <input type="radio" id="4" name="numberOfDeliveries" value="4">
-                    <label for="4">4</label>
-                </td>
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
             </tr>
-            <tr>
-                <td>
-                <button>Dalej ...</button>
-                </td>
-            </tr>
-
         </table>
-    </form>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

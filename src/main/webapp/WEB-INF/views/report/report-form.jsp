@@ -12,36 +12,40 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Parametry raportu</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+        <p align="center" class="errorMessage">${error}</p>
 
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
-
-    <form:form method="post" action="/reports/form" modelAttribute="report">
-        <table align="center">
+        <form:form method="post" action="/reports/form" modelAttribute="report">
+            <table>
+                <tr>
+                    <td>Rodzaj raportu: </td>
+                    <td><form:select path="type" items="${types}" /></td>
+                </tr>
+                <tr>
+                    <td>Zakres: </td>
+                    <td>
+                        <form:select path="months" items="${months}" multiple="true" />
+                        <form:select path="years" items="${years}" multiple="true" />
+                    </td>
+                </tr>
+            </table>
+            <table align="center">
+                <td><button class="button">Dalej ... </button></td>
+            </table>
+        </form:form>
+        <table>
             <tr>
-                <td>Rodzaj raportu: </td>
-                <td><form:select path="type" items="${types}" /></td>
-            </tr>
-            <tr>
-                <td>Zakres: </td>
-                <td>
-                    <form:select path="months" items="${months}" multiple="true" />
-                    <form:select path="years" items="${years}" multiple="true" />
-                </td>
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
             </tr>
         </table>
-        <table align="center">
-            <td><button>Dalej ... </button></td>
-        </table>
-    </form:form>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

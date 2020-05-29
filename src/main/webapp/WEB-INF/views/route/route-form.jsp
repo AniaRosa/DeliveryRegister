@@ -12,72 +12,75 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Dodawanie trasy</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
 
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
+        <form:form method="post" action="/route/form/${numberOfDeliveries}" modelAttribute="route">
+            <table>
+                <tr>
+                    <td>
+                        *Adres startowy: <form:input path="address1" />
+                        <form:errors path="address1" cssClass="errorMessage" /> <br>
+                        Adres pierwszej dostawy: <form:input path="address2" />
+                        <form:errors path="address2" cssClass="errorMessage" /> <br>
+                        Koszt: <form:input path="price2" />
+                        <form:errors path="price2" cssClass="errorMessage" /> <br>
+                        <c:if test="${numberOfDeliveries > 1}">
+                            Adres drugiej dostawy: <form:input path="address3" />
+                            <form:errors path="address3" cssClass="errorMessage" /> <br>
+                            Koszt: <form:input path="price3" />
+                            <form:errors path="price3" cssClass="errorMessage" /> <br>
+                        </c:if>
+                        <c:if test="${numberOfDeliveries > 2}">
+                            Adres trzeciej dostawy: <form:input path="address4" />
+                            <form:errors path="address4" cssClass="errorMessage" /> <br>
+                            Koszt: <form:input path="price4" />
+                            <form:errors path="price4" cssClass="errorMessage" /> <br>
+                        </c:if>
+                        <c:if test="${numberOfDeliveries > 3}">
+                            Adres czwartej dostawy: <form:input path="address5" />
+                            <form:errors path="address5" cssClass="errorMessage" /> <br>
+                            Koszt: <form:input path="price5" />
+                            <form:errors path="price5" cssClass="errorMessage" /> <br>
+                        </c:if>
+                        *Adres końcowy: <form:input path="address6" />
+                        <form:errors path="address6" cssClass="errorMessage" />
+                    </td>
 
-    <form:form method="post" action="/route/form/${numberOfDeliveries}" modelAttribute="route">
-        <table align="center">
+                </tr>
+                <tr>
+                    <td>
+                    *JEŻELI INNY NIŻ ADRES PARABARU
+                    </td>
+                </tr>
+
+                <tr style="height: 20px"></tr>
+
+                <p><form:hidden path="id" /></p>
+                <p><form:hidden path="user" /></p>
+                <p><form:hidden path="date" /></p>
+                <p><form:hidden path="time" /></p>
+                <p><form:hidden path="deliveries" /></p>
+
+                <tr>
+                    <td><a href="/route/form/deliveries-number/${route.id}" class="button">Cofnij!</a> <button class="button">Prześlij!</button></td>
+                </tr>
+
+            </table>
+        </form:form>
+        <table>
             <tr>
-                <td>
-                    *Adres startowy: <form:input path="address1" />
-                    <form:errors path="address1" cssClass="errorMessage" /> <br>
-                    Adres pierwszej dostawy: <form:input path="address2" />
-                    <form:errors path="address2" cssClass="errorMessage" /> <br>
-                    Koszt: <form:input path="price2" />
-                    <form:errors path="price2" cssClass="errorMessage" /> <br>
-                    <c:if test="${numberOfDeliveries > 1}">
-                        Adres drugiej dostawy: <form:input path="address3" />
-                        <form:errors path="address3" cssClass="errorMessage" /> <br>
-                        Koszt: <form:input path="price3" />
-                        <form:errors path="price3" cssClass="errorMessage" /> <br>
-                    </c:if>
-                    <c:if test="${numberOfDeliveries > 2}">
-                        Adres trzeciej dostawy: <form:input path="address4" />
-                        <form:errors path="address4" cssClass="errorMessage" /> <br>
-                        Koszt: <form:input path="price4" />
-                        <form:errors path="price4" cssClass="errorMessage" /> <br>
-                    </c:if>
-                    <c:if test="${numberOfDeliveries > 3}">
-                        Adres czwartej dostawy: <form:input path="address5" />
-                        <form:errors path="address5" cssClass="errorMessage" /> <br>
-                        Koszt: <form:input path="price5" />
-                        <form:errors path="price5" cssClass="errorMessage" /> <br>
-                    </c:if>
-                    *Adres końcowy: <form:input path="address6" />
-                    <form:errors path="address6" cssClass="errorMessage" />
-                </td>
-
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
             </tr>
-            <tr>
-                <td>
-                *JEŻELI INNY NIŻ ADRES PARABARU
-                </td>
-            </tr>
-
-            <tr style="height: 20px"></tr>
-
-            <p><form:hidden path="id" /></p>
-            <p><form:hidden path="user" /></p>
-            <p><form:hidden path="date" /></p>
-            <p><form:hidden path="time" /></p>
-            <p><form:hidden path="deliveries" /></p>
-
-            <tr>
-                <td><a href="/route/form/deliveries-number/${route.id}" class="button">Cofnij!</a> <button>Prześlij!</button></td>
-            </tr>
-
         </table>
-    </form:form>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
 
-</sec:authorize>
-
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

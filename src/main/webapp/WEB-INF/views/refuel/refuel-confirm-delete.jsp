@@ -12,43 +12,46 @@
 <html>
 <head>
     <title>DELIVERY REGISTER Dodawanie odczytu licznika</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="/WEB-INF/views/head.jsp"%>
 </head>
 <body class="bg">
-
-<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
-     <table align="center">
-         <tr>
-             <th>Czy na pewno chcesz usunąć poniższy wpis?</th>
-         </tr>
-         <tr>
-             <td>Data: ${refuel.date}</td>
-         </tr>
-         <tr>
-             <td>Czas: ${refuel.time}</td>
-         </tr>
-         <tr>
-             <td>Rodzaj paliwa: ${refuel.fuelType}</td>
-         </tr>
-         <tr>
-             <td>Ilość: ${refuel.quantity}</td>
-         </tr>
-         <tr>
-             <td>Koszt: ${refuel.price}</td>
-         </tr>
-         <tr>
-             <td>
-                 <a href="/refuel/delete/${refuel.id}" class="button">Tak   </a>
-                 <a href="/refuel/list" class="button"> Anuluj</a>
-             </td>
-         </tr>
-     </table>
-    <table align="center">
-        <tr>
-            <th><a href="/dashboard" class="button">Powrót do strony głównej</a></th>
-        </tr>
-    </table>
-</sec:authorize>
-
+    <div class="container">
+        <%@include file="/WEB-INF/views/logo.jsp"%>
+    <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER', 'DRIVER')">
+         <table align="center">
+             <tr>
+                 <td>Czy na pewno chcesz usunąć poniższy wpis?</td>
+             </tr>
+             <tr>
+                 <td>Data: ${refuel.date}</td>
+             </tr>
+             <tr>
+                 <td>Czas: ${refuel.time}</td>
+             </tr>
+             <tr>
+                 <td>Rodzaj paliwa: ${refuel.fuelType}</td>
+             </tr>
+             <tr>
+                 <td>Ilość: ${refuel.quantity}</td>
+             </tr>
+             <tr>
+                 <td>Koszt: ${refuel.price}</td>
+             </tr>
+             <tr>
+                 <td>
+                     <a href="/refuel/delete/${refuel.id}" class="button">Tak   </a>
+                     <a href="/refuel/list" class="button"> Anuluj</a>
+                 </td>
+             </tr>
+         </table>
+        <table>
+            <tr>
+                <td><a href="/dashboard" class="button">Powrót do strony głównej</a></td>
+            </tr>
+        </table>
+    </sec:authorize>
+        <br>
+        <br>
+    </div>
 </body>
 </html>

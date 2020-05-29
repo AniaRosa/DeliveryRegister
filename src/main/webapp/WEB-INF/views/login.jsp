@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: ania
@@ -9,14 +10,27 @@
 <html>
 <head>
     <title>Delivery Register Login</title>
-    <link href="/css/main.css" rel="stylesheet">
+    <%@include file="head.jsp"%>
 </head>
 <body class="bg">
-<form method="post">
-    <div align="center"><label> User Name: <input type="text" name="username"/> </label></div>
-    <div align="center"><label> Password: <input type="password" name="password"/> </label></div>
-    <div align="center"><button>Zaloguj</button></div>
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-</form>
+    <div class="container">
+        <%@include file="logo.jsp"%>
+        <form method="post">
+            <table>
+                <tr>
+                    <td>User Name: <input type="text" name="username"/> </td>
+                </tr>
+                <tr>
+                    <td> Password: <input type="password" name="password"/> </td>
+                </tr>
+                <tr>
+                    <td><button class="button">Zaloguj</button></td>
+                </tr>
+            </table>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+        <br>
+        <br>
+    </div>
 </body>
 </html>
