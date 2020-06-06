@@ -22,7 +22,7 @@
             <table>
                 <tr>
                     <td>Zaznacz liczbę dostaw:
-                        <input type="radio" id="1" name="numberOfDeliveries" value="1">
+                        <input type="radio" id="1" name="numberOfDeliveries" value="1" checked>
                         <label for="1">1</label>
                         <input type="radio" id="2" name="numberOfDeliveries" value="2">
                         <label for="2">2</label>

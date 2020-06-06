@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/route", produces = "text/plain;charset=utf-8")
+@RequestMapping(value = "/route", produces = "text/html;charset=utf-8")
 public class RouteController {
 
     @Autowired
